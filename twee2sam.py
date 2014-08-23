@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, os, getopt, glob, re, shutil
+import sys, os, getopt, glob, re, shutil, textwrap
 from operator import itemgetter
 scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
 sys.path.append(os.sep.join([scriptPath, 'tw']))
@@ -159,6 +159,9 @@ def main (argv):
 
 		def out_string(msg):
 			msg = msg.replace('"', "'").replace('[', '{').replace(']', '}');
+			# Only 29 characters fit per line - make sure to break lines
+			# so they don't wrap in the middle of a word.
+			msg = textwrap.fill(msg, 29)
 			msg_len = len(msg)
 
 			# Checks for buffer overflow
