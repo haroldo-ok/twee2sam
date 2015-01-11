@@ -1,0 +1,54 @@
+:: First Option
+[img[Left.png]]
+So, you chose the first option.
+As you can see, links are automatically turned into menus.
+
+<<if not $choseOptionTwo>>
+	<<pause>>
+	By the way, I'll not allow you to go to the end until you see the other option too. :P
+<<endif>>
+
+<<set $choseOptionOne to true>>
+<<if $choseOptionTwo>>
+* [[Go to the end|The end]]
+<<endif>>
+* [[Go back|Start]]
+
+
+
+:: Start
+<<music "system_of_a_master.epsgmod">>
+[img[Hello.png]]
+Hello! This is a "quick-and-dirty" demo of twee2sam.
+<<pause>>
+What option will you choose?
+* [[I'll choose an option|First Option]]
+* [[I'd prefer to choose another|Second option]]
+
+
+:: The end
+[img[Thanks.png]]
+
+Congratulations, this is the end.
+
+
+:: Second option
+[img[Right.png]]
+So, you prefer the second option?
+
+[img[Observation.png]]
+As you can see, the system supports images, though you'll have to properly convert them to the SMS pallete in order for them to work.
+
+<<if not $choseOptionOne>>
+	<<pause>>
+	By the way, I'll not allow you to go to the end until you see the other option too. :P
+<<endif>>
+
+<<set $choseOptionTwo to true>>
+<<if $choseOptionOne>>
+* [[Go to the end.|The end]]
+<<endif>>
+* [[Back to the beginning.|Start]]
+
+
+

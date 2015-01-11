@@ -1,0 +1,181 @@
+(dp0
+S'buildDestination'
+p1
+VC:\u005cUsers\u005cHaroldo\u005cProjetos\u005cpython\u005ctwee2sam\u005cexample\u005csimple\u005ctw\u005cSimple.html
+p2
+sS'saveDestination'
+p3
+S'C:\\Users\\Haroldo\\Projetos\\python\\twee2sam\\example\\simple\\tw\\Simple.tws'
+p4
+sS'target'
+p5
+S'sugarcane'
+p6
+sS'storyPanel'
+p7
+(dp8
+S'widgets'
+p9
+(lp10
+(dp11
+S'selected'
+p12
+I01
+sS'pos'
+p13
+(lp14
+I40
+aI123
+asS'passage'
+p15
+(itiddlywiki
+Tiddler
+p16
+(dp17
+S'text'
+p18
+V<<music "system_of_a_master.epsgmod">>\u000a[img[Hello.png]]\u000aHello! This is a "quick-and-dirty" demo of twee2sam.\u000a<<pause>>\u000aWhat option will you choose?\u000a* [[I'll choose an option|First Option]]\u000a* [[I'd prefer to choose another|Second option]]
+p19
+sS'tags'
+p20
+(lp21
+sS'created'
+p22
+ctime
+struct_time
+p23
+((I2014
+I1
+I19
+I16
+I41
+I50
+I6
+I19
+I1
+tp24
+(dp25
+tp26
+Rp27
+sS'modified'
+p28
+g27
+sS'title'
+p29
+VStart
+p30
+sbsa(dp31
+g12
+I00
+sg13
+(lp32
+I322
+aI40
+asg15
+(itiddlywiki
+Tiddler
+p33
+(dp34
+g18
+V[img[Left.png]]\u000aSo, you chose the first option.\u000aAs you can see, links are automatically turned into menus.\u000a\u000a<<if not $choseOptionTwo>>\u000a	<<pause>>\u000a	By the way, I'll not allow you to go to the end until you see the other option too. :P\u000a<<endif>>\u000a\u000a<<set $choseOptionOne to true>>\u000a<<if $choseOptionTwo>>\u000a* [[Go to the end|The end]]\u000a<<endif>>\u000a* [[Go back|Start]]\u000a
+p35
+sg20
+(lp36
+sg22
+g23
+((I2014
+I1
+I19
+I16
+I43
+I44
+I6
+I19
+I1
+tp37
+(dp38
+tp39
+Rp40
+sg28
+g40
+sg29
+VFirst Option
+p41
+sbsa(dp42
+g12
+I00
+sg13
+(lp43
+I282
+aI268
+asg15
+(itiddlywiki
+Tiddler
+p44
+(dp45
+g18
+V[img[Right.png]]\u000aSo, you prefer the second option?\u000a\u000a[img[Observation.png]]\u000aAs you can see, the system supports images, though you'll have to properly convert them to the SMS pallete in order for them to work.\u000a\u000a<<if not $choseOptionOne>>\u000a	<<pause>>\u000a	By the way, I'll not allow you to go to the end until you see the other option too. :P\u000a<<endif>>\u000a\u000a<<set $choseOptionTwo to true>>\u000a<<if $choseOptionOne>>\u000a* [[Go to the end.|The end]]\u000a<<endif>>\u000a* [[Back to the beginning.|Start]]\u000a
+p46
+sg20
+(lp47
+sg22
+g23
+((I2014
+I1
+I19
+I16
+I43
+I50
+I6
+I19
+I1
+tp48
+(dp49
+tp50
+Rp51
+sg28
+g51
+sg29
+VSecond option
+p52
+sbsa(dp53
+g12
+I00
+sg13
+(lp54
+I602
+aI118
+asg15
+(itiddlywiki
+Tiddler
+p55
+(dp56
+g18
+V[img[Thanks.png]]\u000a\u000aCongratulations, this is the end.
+p57
+sg20
+(lp58
+sg22
+g23
+((I2014
+I1
+I19
+I16
+I44
+I51
+I6
+I19
+I1
+tp59
+(dp60
+tp61
+Rp62
+sg28
+g62
+sg29
+VThe end
+p63
+sbsasS'scale'
+p64
+I1
+ss.

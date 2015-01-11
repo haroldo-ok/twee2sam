@@ -1,0 +1,958 @@
+﻿:: Start
+Colossal Cave Adventure
+Original by Will Crowther (1976) and Don Woods (1977)
+Inform version by Donald Ekman, David M. Baggett (1993) and Graham Nelson (1994)
+Twee2SAM adaptation by Haroldo O. Pinheiro (2014)
+* [[Start game|At End Of Road]]
+
+
+:: At End Of Road
+[img[img/At End Of Road.png]]
+You are standing at the end of a road before a small brick building.
+<<pause>>
+Around you is a forest.
+A small stream flows out of the building and down a gully.
+* [[Enter building|Inside Building]]
+* [[West|At Hill In Road]]
+* [[South|In A Valley]]
+* [[North|In Forest 1]]
+<<if $bottle>><<if !$bottle_has_water>>
+* [[Fill bottle with water|Fill Bottle With Water]]
+<<endif>><<endif>>
+
+
+:: In A Valley
+[img[img/In A Valley.png]]
+You are in a valley in the forest beside a stream tumbling along a rocky bed.
+* [[Back to road|At End Of Road]]
+* [[Enter forest|In Forest 1]]
+* [[Follow streambed|At Slit In Streambed]]
+
+
+:: At Slit In Streambed
+[img[img/At Slit In Streambed.png]]
+At your feet all the water of the stream splashes into a 2-inch slit in the rock.
+Downstream the streambed is bare rock.
+* [[West|In Forest 1]]
+* [[East|In Forest 1]]
+* [[South|Outside Grate]]
+* [[North|In A Valley]]
+
+
+
+:: At Brink Of Pit
+[img[img/At Brink Of Pit.png]]
+You are on the brink of a thirty foot pit with a massive orange column down one wall.
+You could climb down here but you could not get back up.
+The maze continues at this level.
+* [[West|Alike Maze 6]]
+* [[North|Alike Maze 5]]
+* [[Down|In Bird Chamber]]
+
+
+:: In Cobble Crawl
+[img[img/In Cobble Crawl.png]]
+You are crawling over cobbles in a low passage.
+There is a dim light at the east end of the passage.
+* [[West|In Debris Room]]
+* [[East|Below The Grate]]
+
+
+:: In Awkward Sloping E W Canyon
+[img[img/In Awkward Sloping E W Canyon.png]]
+You are in an awkward sloping east/west canyon.
+* [[West|In Bird Chamber]]
+* [[East|In Debris Room]]
+* [[Up|In Bird Chamber]]
+* [[Down|In Debris Room]]
+
+
+:: In Debris Room
+[img[img/In Debris Room.png]]
+You are in a debris room filled with stuff washed in from the surface.
+A low wide passage with cobbles becomes plugged with mud and debris here,
+but an awkward canyon leads upward and west.
+
+A note on the wall says, 'Magic word XYZZY.'
+* [[West|In Awkward Sloping E W Canyon]]
+* [[East|In Cobble Crawl]]
+* [[Up|In Awkward Sloping E W Canyon]]
+
+
+:: In Bird Chamber
+[img[img/In Bird Chamber.png]]
+You are in a splendid chamber thirty feet high.
+The walls are frozen rivers of orange stone.
+An awkward canyon and a good passage exit from east and west sides of the chamber.
+* [[West|At Top Of Small Pit]]
+* [[East|In Awkward Sloping E W Canyon]]
+
+
+:: At Hill In Road
+[img[img/At Hill In Road.png]]
+You have walked up a hill, still in the forest.
+The road slopes back down the other side of the hill.
+There is a building in the distance.
+* [[Follow road|At End Of Road]]
+* [[South|In Forest 1]]
+
+
+
+:: Inside Building
+[img[img/Inside Building.png]]
+You are inside a building, a well house for a large spring.
+
+<<pause>>
+	
+<<if !$set_of_keys>>
+	There are some keys on the ground here. 
+You take them with you.
+	<<set $set_of_keys = true>>
+	<<pause>>
+<<endif>>
+
+<<if !$tasty_food>>
+	There is tasty food here.
+You take it with you.
+	<<set $tasty_food = true>>
+	<<pause>>
+<<endif>>
+
+<<if !$brass_lantern>>
+	There is a shiny brass lamp nearby.
+You take it with you.
+	<<set $brass_lantern = true>>
+	<<pause>>
+<<endif>>
+
+<<if !$bottle>>
+	There is an empty bottle here.
+You take it with you.
+	<<set $bottle = true>>
+	<<pause>>
+<<endif>>
+
+* [[Leave building|At End Of Road]]
+
+
+:: Below The Grate
+[img[img/Below The Grate.png]]
+You are in a small chamber beneath a 3x3 steel grate to the surface.
+A low crawl over cobbles leads inward to the west.
+* [[West|In Cobble Crawl]]
+* [[Up|Outside Grate]]
+
+
+:: Alike Maze 6
+[img[img/Alike Maze.png]]
+You are in a maze of twisty little passages, all alike.
+* [[West|Alike Maze 2]]
+* [[North|At Brink Of Pit]]
+* [[Down|Alike Maze 5]]
+
+
+:: Outside Grate
+[img[img/Outside Grate.png]]
+You are in a 20-foot depression floored with bare dirt.
+Set into the dirt is a strong steel grate mounted in concrete.
+A dry streambed leads into the depression.
+
+<<if $set_of_keys>><<if !$grate_unlocked>>
+	You use the keys to unlock the grate.
+	<<set $grate_unlocked = true>>
+<<endif>><<endif>>
+
+<<if $grate_unlocked>>
+* [[Enter the grate|Below The Grate]]
+<<endif>>
+* [[Back to forest|In Forest 1]]
+* [[North|At Slit In Streambed]]
+
+
+:: Fill Bottle With Water
+The bottle is now full of water.
+<<set $bottle_has_oil = false>>
+<<set $bottle_has_water = true>>
+* [[Back|At End Of Road]]
+
+
+:: In Forest 1
+[img[img/In Forest 1.png]]
+You are in open forest, with a deep valley to one side.
+* [[West|In Forest 1]]
+* [[East|In A Valley]]
+* [[South|In Forest 1]]
+* [[North|In Forest 1]]
+* [[Down|In A Valley]]
+
+
+:: At Top Of Small Pit
+[img[img/At Top Of Small Pit.png]]
+At your feet is a small pit breathing traces of white mist.
+A west passage ends here except for a small crack leading on.
+
+Rough stone steps lead down the pit.
+* [[West|At Top Of Small Pit Follow Crack]]
+* [[East|In Bird Chamber]]
+* [[Down|In Hall Of Mists]]
+
+
+:: At Top Of Small Pit Follow Crack
+The crack is far too small for you to follow.
+* [[East|At Top Of Small Pit]]
+
+
+:: Alike Maze 2
+[img[img/Alike Maze.png]]
+You are in a maze of twisty little passages, all alike.
+* [[East|Alike Maze 3]]
+* [[Up|Dead End 13]]
+* [[South|Alike Maze 4]]
+
+
+:: Dead End 13
+This is the pirate's dead end.
+* [[Leave|Alike Maze 2]]
+
+
+:: Alike Maze 5
+[img[img/Alike Maze.png]]
+You are in a maze of twisty little passages, all alike.
+* [[Up|Alike Maze 2]]
+* [[East|At Brink Of Pit]]
+* [[West|Alike Maze 3]]
+
+
+:: Alike Maze 4
+[img[img/Alike Maze.png]]
+You are in a maze of twisty little passages, all alike.
+* [[North|Alike Maze 6]]
+* [[South|Alike Maze 5]]
+* [[Down|Alike Maze 1]]
+
+
+:: RepositoryGrate
+It just looks like an ordinary steel grate.
+* [[Enter|Outside Grate]]
+
+
+:: Alike Maze 3
+[img[img/Alike Maze.png]]
+You are in a maze of twisty little passages, all alike.
+* [[West|Alike Maze 1]]
+* [[South|Alike Maze 5]]
+* [[North|Alike Maze 6]]
+
+
+:: Alike Maze 1
+[img[img/Alike Maze.png]]
+You are in a maze of twisty little passages, all alike.
+* [[Down|Alike Maze 6]]
+* [[Up|At West End Of Hall Of Mists]]
+* [[West|Alike Maze 4]]
+
+
+:: Different Maze 6
+You are in a twisting little maze of passages, all different.
+* [[North|Different Maze 4]]
+* [[South|Different Maze 3]]
+* [[East|Different Maze 1]]
+
+
+
+:: West Side Of Fissure
+You are on the west side of the fissure in the hall of mists.
+* [[Back|At West End Of Hall Of Mists]]
+
+
+
+:: Different Maze 5
+You are in a twisting maze of little passages, all different.
+* [[North|Different Maze 2]]
+* [[South|Different Maze 4]]
+* [[East|Different Maze 6]]
+
+
+
+:: At Sw End
+You are at the southwest end of the repository.
+To one side is a pit full of fierce green snakes.
+On the other side is a row of small wicker cages, each of which contains a little sulking bird.
+In one corner is a bundle of black rods with rusty marks on their ends.
+A large number of velvet pillows are scattered about on the floor.
+A vast mirror stretches off to the northeast.
+At your feet is a large steel grate, next to which is a sign which reads,
+'TREASURE VAULT. Keys in main office.'
+* [[Down|RepositoryGrate]]
+* [[Northeast|At Ne End]]
+
+
+:: At Ne End
+You are at the northeast end of an immense room, even larger than the giant room.
+<<pause>>
+It appears to be a repository for the 'Adventure' program.
+Massive torches far overhead bathe the room with smoky yellow light.
+<<pause>>
+Scattered about you can be seen a pile of bottles (all of them empty),
+a nursery of young beanstalks murmuring quietly, a bed of oysters,
+a bundle of black rods with rusty stars on their ends, and a collection of brass lanterns.
+<<pause>>
+Off to one side a great many dwarves are sleeping on the floor, snoring loudly.
+A sign nearby reads: 'Do not disturb the dwarves!'
+* [[Southwest|At Sw End]]
+
+
+:: At East End Of Long Hall
+You are at the east end of a very long hall apparently without side chambers.
+To the east a low wide crawl slants up.
+To the north a round two foot hole slants down.
+* [[West|At West End Of Long Hall]]
+* [[East|At West End Of Hall Of Mists]]
+* [[North|Crossover]]
+* [[Up|At West End Of Hall Of Mists]]
+* [[Down|Crossover]]
+
+
+:: Different Maze 1
+You are in a maze of twisty little passages, all different.
+* [[North|Different Maze 6]]
+* [[South|Different Maze 4]]
+* [[East|Different Maze 3]]
+
+
+
+:: Different Maze 2
+You are in a little maze of twisting passages, all different.
+* [[North|Different Maze 3]]
+* [[South|Dead End 14]]
+* [[East|Different Maze 1]]
+
+
+
+:: At West End Of Hall Of Mists
+[img[img/blank.png]]
+You are at the west end of the hall of mists.
+A low wide crawl continues west and another goes north.
+To the south is a little passage 6 feet off the floor.
+* [[West|At East End Of Long Hall]]
+* [[East|West Side Of Fissure]]
+* [[South|Alike Maze 1]]
+* [[North|West Side Of Fissure]]
+* [[Up|Alike Maze 1]]
+
+
+:: Dead End 14
+You have reached a dead end. There is a massive vending machine here.
+
+Hmmm... There is a message here scrawled in the dust in a flowery script.
+
+The message reads, 'This is not the maze where the pirate leaves
+his treasure chest.'
+
+* [[Leave|Different Maze 2]]
+
+
+
+:: Crossover
+You are at a crossover of a high N/S passage and a low E/W one.
+* [[West|At East End Of Long Hall]]
+* [[East|In West Side Chamber]]
+* [[South|At West End Of Long Hall]]
+
+
+
+:: At West End Of Long Hall
+You are at the west end of a very long featureless hall.
+The hall joins up with a narrow north/south passage.
+* [[East|At East End Of Long Hall]]
+* [[South|Different Maze 1]]
+* [[North|Crossover]]
+
+
+:: In Pit
+You are in the bottom of a small pit with a little stream,
+which enters and exits through tiny slits.
+* [[Up|On Brink Of Pit]]
+
+
+
+:: On Brink Of Pit
+You are on the brink of a small clean climbable pit.
+A crawl leads west.
+* [[West|In Dirty Passage]]
+* [[Enter|In Pit]]
+* [[Down|In Pit]]
+
+
+:: In Ragged Corridor
+You are in a long sloping corridor with ragged sharp walls.
+* [[Up|In Shell Room]]
+* [[Down|In A Cul De Sac]]
+
+
+:: Different Maze 4
+You are in a little maze of twisty passages, all different.
+* [[North|Different Maze 3]]
+* [[South|Different Maze 5]]
+* [[East|Different Maze 2]]
+
+
+
+:: In A Cul De Sac
+You are in a cul-de-sac about eight feet across.
+* [[Leave|In Ragged Corridor]]
+* [[Up|In Ragged Corridor]]
+
+
+:: Different Maze 3
+You are in a maze of twisting little passages, all different.
+* [[North|Different Maze 5]]
+* [[South|Different Maze 4]]
+* [[East|Different Maze 1]]
+
+
+
+:: In Dirty Passage
+You are in a dirty broken passage.
+To the east is a crawl.
+To the west is a large passage.
+Above you is a hole to another passage.
+* [[West|In Dusty Rock Room]]
+* [[East|On Brink Of Pit]]
+* [[Up|Low N S Passage]]
+
+
+:: In Arched Hall
+You are in an arched hall.
+A coral passage once continued up and east from here, but is now blocked by debris.
+The air smells of sea water.
+* [[Down|In Shell Room]]
+
+
+:: In Shell Room
+You're in a large room carved out of sedimentary rock.
+The floor and walls are littered with bits of shells imbedded in the stone.
+A shallow passage proceeds downward, and a somewhat steeper one leads up.
+A low hands and knees passage enters from the south.
+* [[Up|In Arched Hall]]
+* [[Down|In Ragged Corridor]]
+
+
+:: In West Side Chamber
+You are in the west side chamber of the hall of the mountain king.
+A passage continues west and up here.
+* [[West|Crossover]]
+* [[East|In Hall Of Mt King]]
+* [[Up|Crossover]]
+
+
+:: In Nugget Of Gold Room
+This is a low room with a crude note on the wall:
+
+'You won't get it up the steps'.
+* [[North|In Hall Of Mists]]
+
+
+:: In Anteroom
+You are in an anteroom leading to a large passage to the east.
+Small passages go west and up.
+The remnants of recent digging are evident.
+* [[West|In Bedquilt 2]]
+* [[East|At Witts End]]
+* [[Up|At Complex Junction]]
+
+
+:: At Witts End
+You are at Witt's End. Passages lead off in *all* directions.
+* [[West|At Witts End Cavein]]
+
+
+:: At Complex Junction
+You are at a complex junction.
+A low hands and knees passage from the north joins a higher crawl from the east
+to make a walking passage going west.
+There is also a large room above.
+The air is damp here.
+* [[West|In Bedquilt 2]]
+* [[East|In Anteroom]]
+* [[North|In Shell Room]]
+* [[Up|In Dusty Rock Room]]
+
+
+:: In Dusty Rock Room
+You are in a large room full of dusty rocks.
+There is a big hole in the floor.
+There are cracks everywhere, and a passage leading east.
+* [[East|In Dirty Passage]]
+* [[Down|At Complex Junction]]
+
+
+:: In Hall Of Mt King
+You are in the hall of the mountain king, with passages off in all directions.
+* [[West|In West Side Chamber]]
+* [[East|In Hall Of Mists]]
+* [[South|In South Side Chamber]]
+* [[North|Low N S Passage]]
+* [[Up|In Hall Of Mists]]
+
+
+:: On East Bank Of Fissure
+You are on the east bank of a fissure slicing clear across the hall.
+The mist is quite thick here, and the fissure is too wide to jump.
+* [[East|In Hall Of Mists]]
+
+
+:: In South Side Chamber
+You are in the south side chamber.
+There is precious jewelry here!
+[[North|In Hall Of Mt King]]
+
+
+:: In Hall Of Mists
+[img[img/blank.png]]
+You are at one end of a vast hall stretching forward out of sight to the west.
+There are openings to either side.
+Nearby, a wide stone staircase leads downward.
+The hall is filled with wisps of white mist swaying to and fro almost as if alive.
+A cold wind blows up the staircase.
+There is a passage at the top of a dome behind you.
+
+Rough stone steps lead up the dome.
+* [[West|On East Bank Of Fissure]]
+* [[South|In Nugget Of Gold Room]]
+* [[North|In Hall Of Mt King]]
+* [[Down|In Hall Of Mt King]]
+
+
+:: At Witts End Cavein
+You have crawled around in some little holes and found your way blocked by a recent cave-in.
+You are now back in the main passage.
+* [[Back|In Anteroom]]
+
+
+:: Jumble Of Rock
+You are in a jumble of rock, with cracks everywhere.
+* [[Up|In Hall Of Mists]]
+* [[Down|At Y2]]
+
+
+:: Low N S Passage
+You are in a low N/S passage at a hole in the floor.
+The hole goes down to an E/W passage.
+* [[South|In Hall Of Mt King]]
+* [[North|At Y2]]
+* [[Down|In Dirty Passage]]
+
+
+:: At Y2
+You are in a large room, with a passage to the south,
+a passage to the west, and a wall of broken rock to the east.
+There is a large 'Y2' on a rock in the room's center.
+* [[West|At Window On Pit 1]]
+* [[East|Jumble Of Rock]]
+* [[South|Low N S Passage]]
+
+
+:: At Window On Pit 1
+You're at a low window overlooking a huge pit, which extends up out of sight.
+A floor is indistinctly visible over 50 feet below.
+Traces of white mist cover the floor of the pit, becoming thicker to the right.
+Marks in the dust around the window would seem to indicate that someone has been here recently.
+Directly across the pit from you and 25 feet away
+there is a similar window looking into a lighted room.
+A shadowy figure can be seen there peering back at you.
+* [[East|At Y2]]
+
+
+:: In Bedquilt 2
+You are in bedquilt, a long east/west passage with holes everywhere.
+* [[East|At Complex Junction]]
+* [[West|In Bedquilt]]
+* [[North|At Junction Of Three]]
+* [[Down|In Anteroom]]
+
+
+
+:: In Bedquilt
+You are in bedquilt, a long east/west passage with holes everywhere.
+* [[East|In Bedquilt 2]]
+* [[West|In Swiss Cheese Room]]
+* [[South|In Slab Room]]
+* [[Up|In Dusty Rock Room]]
+
+
+
+:: In Giant Room
+You are in the giant room.
+The ceiling here is too high up for your lamp to show it.
+Cavernous passages lead east, north, and south.
+On the west wall is scrawled the inscription, 'Fee fie foe foo' [sic].
+* [[South|In Narrow Corridor]]
+* [[North|In Immense N S Passage]]
+
+
+:: In Immense N S Passage
+You are at one end of an immense north/south passage.
+* [[South|In Giant Room]]
+
+
+:: In East Pit
+You are at the bottom of the eastern pit in the twopit room.
+There is a small pool of oil in one corner of the pit.
+* [[Up|At East End Of Twopit Room]]
+
+
+:: At East End Of Twopit Room
+You are at the east end of the twopit room.
+The floor here is littered with thin rock slabs, which make it easy to descend the pits.
+There is a path here bypassing the pits to connect passages from east and west.
+There are holes all over,
+but the only big one is on the wall directly over the west pit where you can't get to it.
+* [[West|At West End Of Twopit Room]]
+* [[East|In Swiss Cheese Room]]
+* [[Down|In East Pit]]
+
+
+:: In West Pit
+You are at the bottom of the western pit in the twopit room.
+There is a large hole in the wall about 25 feet above you.
+* [[Up|At West End Of Twopit Room]]
+
+
+:: At West End Of Twopit Room
+You are at the west end of the twopit room.
+There is a large hole in the wall above the pit at this end of the room.
+* [[West|In Slab Room]]
+* [[East|At East End Of Twopit Room]]
+* [[Down|In West Pit]]
+
+
+:: In Narrow Corridor
+You are in a long, narrow corridor stretching out of sight to the west.
+At the eastern end is a hole through which you can see a profusion of leaves.
+* [[West|In Giant Room]]
+* [[East|In West Pit]]
+* [[Down|In West Pit]]
+
+
+:: In Cavern With Waterfall
+You are in a magnificent cavern with a rushing stream,
+which cascades over a sparkling waterfall into a roaring whirlpool
+which disappears through a hole in the floor.
+Passages exit to the south and west.
+* [[West|At Steep Incline]]
+* [[South|In Immense N S Passage]]
+
+
+:: At Junction Of Three
+You are in a secret canyon at a junction of three canyons, bearing north, south, and se.
+The north one is as tall as the other two combined.
+* [[South|In Secret N S Canyon 1]]
+* [[North|At Window On Pit 2]]
+
+
+:: In Soft Room
+You are in the soft room.
+The walls are covered with heavy curtains, the floor with a thick pile carpet.
+Moss covers the ceiling.
+* [[West|In Swiss Cheese Room]]
+
+
+:: In Swiss Cheese Room
+You are in a room whose walls resemble swiss cheese.
+Obvious passages go west, east, ne, and nw.
+Part of the room is occupied by a large bedrock block.
+* [[West|At East End Of Twopit Room]]
+* [[East|In Soft Room]]
+* [[South|In Tall E W Canyon]]
+
+
+:: At Window On Pit 2
+You're at a low window overlooking a huge pit, which extends up out of sight.
+A floor is indistinctly visible over 50 feet below.
+Traces of white mist cover the floor of the pit, becoming thicker to the left.
+Marks in the dust around the window would seem to indicate that someone has been here recently.
+Directly across the pit from you and 25 feet away
+there is a similar window looking into a lighted room.
+A shadowy figure can be seen there peering back at you.
+* [[West|At Junction Of Three]]
+
+
+:: In Secret N S Canyon 1
+You are in a secret N/S canyon above a sizable passage.
+* [[South|Atop Stalactite]]
+* [[North|At Junction Of Three]]
+* [[Down|In Bedquilt]]
+
+
+:: In Slab Room
+You are in a large low circular chamber
+whose floor is an immense slab fallen from the ceiling (slab room).
+East and west there once were large passages, but they are now filled with boulders.
+Low small passages go north and south, and the south one quickly bends west around the boulders.
+* [[South|At West End Of Twopit Room]]
+* [[North|In Bedquilt]]
+* [[Up|In Secret N S Canyon 0]]
+
+
+:: In Tall E W Canyon
+You are in a tall E/W canyon. A low tight crawl goes 3 feet north
+and seems to open up.
+* [[East|In N S Canyon]]
+* [[North|In Swiss Cheese Room]]
+
+
+:: At Steep Incline
+You are at the top of a steep incline above a large room.
+You could climb down here, but you would not be able to climb up.
+There is a passage leading back to the north.
+* [[North|In Cavern With Waterfall]]
+* [[Down|In Large Low Room]]
+
+
+:: In Alcove
+You are in an alcove.
+A small northwest path seems to widen after a short distance.
+An extremely tight tunnel leads east.
+It looks like a very tight squeeze.
+An eerie light can be seen at the other end.
+* [[Northwest|In Misty Cavern]]
+* [[East|In Plover Room]]
+
+
+
+:: In Misty Cavern
+You are following a wide path around the outer edge of a large cavern.
+Far below, through a heavy white mist, strange splashing noises can be heard.
+The mist rises up through a fissure in the ceiling.
+The path exits to the south and west.
+* [[West|In Alcove]]
+* [[South|In Oriental Room]]
+
+
+:: In Oriental Room
+This is the oriental room.
+Ancient oriental cave drawings cover the walls.
+A gently sloping passage leads upward to the north, another passage leads se,
+and a hands and knees crawl leads west.
+* [[West|In Large Low Room]]
+* [[North|In Misty Cavern]]
+* [[Up|In Misty Cavern]]
+
+
+:: Atop Stalactite
+A large stalactite extends from the roof and almost reaches the floor below.
+You could climb down it, and jump from it to the floor,
+but having done so you would be unable to reach it to climb back up.
+* [[North|In Secret N S Canyon 1]]
+
+
+:: In Secret N S Canyon 0
+You are in a secret N/S canyon above a large room.
+* [[South|In Secret Canyon]]
+* [[North|In Mirror Canyon]]
+* [[Down|In Slab Room]]
+
+
+:: In Secret Canyon
+You are in a secret canyon which exits to the north and east.
+
+
+:: In N S Canyon
+You are at a wide place in a very tight N/S canyon.
+* [[South|Canyon Dead End]]
+* [[North|In Tall E W Canyon]]
+
+
+:: In Secret E W Canyon
+You are in a secret canyon which here runs E/W.
+It crosses over a very tight canyon 15 feet below.
+If you go down you may not be able to get back up.
+* [[West|In Secret Canyon]]
+* [[East|In Hall Of Mt King]]
+* [[Down|In N S Canyon]]
+
+
+:: In Plover Room
+You're in a small chamber lit by an eerie green light.
+An extremely narrow tunnel exits to the west.
+A dark corridor leads northeast.
+* [[Northeast|In Dark Room]]
+* [[West|In Alcove]]
+
+
+:: In Dark Room
+You're in the dark-room. A corridor leading south is the only exit.
+* [[South|In Plover Room]]
+
+
+:: In Sloping Corridor
+You are in a long winding corridor sloping out of sight in both directions.
+* [[Up|On Sw Side Of Chasm]]
+* [[Down|In Large Low Room]]
+
+
+:: In Large Low Room
+You are in a large low room. Crawls lead north, se, and sw.
+* [[North|Dead End Crawl]]
+
+
+:: At Reservoir
+You are at the edge of a large underground reservoir.
+An opaque cloud of white mist fills the room and rises rapidly upward.
+The lake is fed by a stream, which tumbles out of a hole in the wall about 10 feet overhead
+and splashes noisily into the water somewhere within the mist.
+The only passage goes back toward the south.
+* [[Leave|In Mirror Canyon]]
+* [[South|In Mirror Canyon]]
+
+
+:: In Mirror Canyon
+You are in a north/south canyon about 25 feet across.
+The floor is covered by white mist seeping in from the north.
+The walls extend upward for well over 100 feet.
+Suspended from some unseen point far above you,
+an enormous two-sided mirror is hanging parallel to and midway between the canyon walls.
+
+A small window can be seen in either wall, some fifty feet up.
+* [[South|In Secret N S Canyon 0]]
+* [[North|At Reservoir]]
+
+
+:: Canyon Dead End
+The canyon here becomes too tight to go further south.
+* [[North|In N S Canyon]]
+
+
+:: Dead End Crawl
+This is a dead end crawl.
+* [[Leave|In Large Low Room]]
+
+
+
+:: Dont Be Ridiculous
+Don't be ridiculous!
+[[Back|At Breath Taking View]]
+
+
+:: In Chamber Of Boulders
+You are in a small chamber filled with large boulders.
+The walls are very warm, causing the air in the room to be almost stifling from the heat.
+The only exit is a crawl heading west, through which is coming a low rumbling.
+* [[Leave|At Junction With Warm Walls]]
+* [[West|At Junction With Warm Walls]]
+
+
+:: In Limestone Passage
+You are walking along a gently sloping north/south passage
+lined with oddly shaped limestone formations.
+* [[South|In Front Of Barren Room]]
+* [[North|At Fork In Path]]
+* [[Up|At Fork In Path]]
+* [[Down|In Front Of Barren Room]]
+
+
+:: In Front Of Barren Room
+You are standing at the entrance to a large, barren room.
+A sign posted above the entrance reads: 'Caution! Bear in room!'
+* [[West|In Limestone Passage]]
+* [[Enter|In Barren Room]]
+* [[East|In Barren Room]]
+* [[Up|In Limestone Passage]]
+
+
+:: In Barren Room
+You are inside a barren room.
+The center of the room is completely empty except for some dust.
+Marks in the dust lead away toward the far end of the room.
+The only exit is the way you came in.
+* [[Leave|In Front Of Barren Room]]
+* [[West|In Front Of Barren Room]]
+
+
+:: On Sw Side Of Chasm
+You are on one side of a large, deep chasm.
+A heavy white mist rising up from below obscures all view of the far side.
+A southwest path leads away from the chasm into a winding corridor.
+* [[Down|In Sloping Corridor]]
+* [[Walk to bridge|RicketyBridge]]
+
+
+:: At Breath Taking View
+You are on the edge of a breath-taking view.
+<<pause>>
+Far below you is an active volcano, from which great gouts of molten lava come surging  out,
+cascading back down into the depths.
+<<pause>>
+The glowing rock fills the farthest reaches of the cavern with a blood-red glare,
+giving everything an eerie, macabre appearance.
+<<pause>>
+The air is filled with flickering sparks of ash and a heavy smell of brimstone.
+<<pause>>
+The walls are hot to the touch,
+and the thundering of the volcano drowns out all other sounds.
+Embedded in the jagged roof far overhead
+are myriad twisted formations composed of pure white alabaster,
+which scatter the murky light into sinister apparitions upon the walls.
+<<pause>>
+To one side is a deep gorge, filled with a bizarre chaos of tortured rock
+which seems to have been crafted by the devil himself.
+<<pause>>
+An immense river of fire crashes out from the depths of the volcano,
+burns its way through the gorge, and plummets into a bottomless pit far off to your left.
+<<pause>>
+To the right, an immense geyser of blistering steam erupts continuously
+from a barren island in the center of a sulfurous lake, which bubbles ominously.
+<<pause>>
+The far right wall is aflame with an incandescence of its own,
+which lends an additional infernal splendor to the already hellish scene.
+<<pause>>
+A dark, forboding passage exits to the south.
+* [[Leave|At Junction With Warm Walls]]
+* [[South|At Junction With Warm Walls]]
+* [[Down|Dont Be Ridiculous]]
+
+
+:: At Junction With Warm Walls
+The walls are quite warm here.
+From the north can be heard a steady roar,
+so loud that the entire cave seems to be trembling.
+Another passage leads south, and a low crawl goes east.
+* [[East|In Chamber Of Boulders]]
+* [[South|At Fork In Path]]
+* [[North|At Breath Taking View]]
+
+
+:: At Fork In Path
+The path forks here. The left fork leads northeast.
+A dull rumbling seems to get louder in that direction.
+The right fork leads southeast down a gentle slope.
+The main corridor enters from the west.
+* [[West|In Corridor]]
+* [[Down|In Limestone Passage]]
+
+
+:: In Corridor
+You're in a long east/west corridor.
+A faint rumbling noise can be heard in the distance.
+* [[West|On Ne Side Of Chasm]]
+* [[East|At Fork In Path]]
+
+
+:: On Ne Side Of Chasm
+You are on the far side of the chasm.
+A northeast path leads away from the chasm on this side.
+* [[Walk to bridge|RicketyBridge]]
+* [[Northeast|In Corridor]]
+
+
+:: RicketyBridge
+A rickety wooden bridge extends across the chasm, vanishing into the mist.
+
+A sign posted on the bridge reads, 'Stop! Pay troll!'
+The troll is nowhere to be seen.
+
+* [[Southwest|On Sw Side Of Chasm]]
+* [[Northeast|On Ne Side Of Chasm]]
+
+

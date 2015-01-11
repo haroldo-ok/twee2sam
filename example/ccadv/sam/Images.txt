@@ -1,0 +1,16 @@
+At_Top_Of_Small_Pit
+At_Slit_In_Streambed
+In_Awkward_Sloping_E_W_Canyon
+In_Forest_1
+Alike_Maze
+In_Cobble_Crawl
+blank
+In_Bird_Chamber
+At_Brink_Of_Pit
+At_End_Of_Road
+At_Hill_In_Road
+In_A_Valley
+Outside_Grate
+In_Debris_Room
+Below_The_Grate
+Inside_Building
