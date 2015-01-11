@@ -6,6 +6,9 @@
 import sys
 import re
 
+import tokenize
+from io import StringIO
+
 #TODO: remove global usage
 token = None
 _next = None
@@ -148,8 +151,6 @@ constant("false")
 # python tokenizer
 
 def tokenize_python(program):
-    import tokenize
-    from io import StringIO
     type_map = {
         tokenize.NUMBER: "(literal)",
         tokenize.STRING: "(literal)",
@@ -172,13 +173,12 @@ def tokenize_python(program):
                 raise SyntaxError("Syntax error")
     yield "(end)", "(end)"
 
-def tokenize(program):
+def tokenizing(program):
     if isinstance(program, list):
         source = program
     else:
         # Hack to make JS boolean operators work with the Python tokenizer
-        # go through the string and replace characters
-        program = ''.join(map(lambda x: {'&&': " and ", '||': ' or ', '!':' not ', '$':''}[x] if x in ('&&','||','!', '$') else x, program))
+        program = program.replace('&&', ' and ').replace('||', ' or ').replace('!', ' not ').replace('$', '').strip()
         source = tokenize_python(program)
     for id, value in source:
         if id == "(literal)":
@@ -215,9 +215,9 @@ def parse(program):
     global _next, token
     #import pdb; pdb.set_trace()
     try:
-        _next = tokenize(program).__next__
+        _next = tokenizing(program).__next__
     except AttributeError:
-        _next = tokenize(program).next
+        _next = tokenizing(program).next
     token = _next()
     return expression()
 
