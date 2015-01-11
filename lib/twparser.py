@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
-import sys, re, twexpression
+import sys, re
+import logging
+import twexpression
 
 __version__ = "0.2"
 
@@ -178,7 +179,7 @@ class Passage(object):
         return if_macro
 
     def _warning(self, msg):
-        print('Warning on {0}: {1}'.format(self.title, msg))
+        logging.warning("'{0}': {1}".format(self.title, msg))
 
 class AbstractCmd(object):
     """Base class for the different kinds of commands"""
@@ -335,7 +336,7 @@ class CallMacro(AbstractMacro):
 
         match = CallMacro.RE_CALL.match(params.lstrip().rstrip())
         if match:
-            print("CallMacro: Call subroutine %s %s" % (kind, params))
+            logging.info("CallMacro: Call subroutine %s %s" % (kind, params))
             self.target = match.group(1)
             self.expr = self.target
             return
@@ -344,7 +345,7 @@ class ReturnMacro(AbstractMacro):
     """Class for a return-from-subroutine macro"""
 
     def _parse(self, token):
-        print("ReturnMacro: Return from subroutine")
+        logging.info("ReturnMacro: Return from subroutine")
         self.expr = True
         return
 

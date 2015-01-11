@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 import argparse, sys, os, glob, re, shutil, io
+import logging
 from operator import itemgetter
 scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
 sys.path.append(os.path.join(scriptPath, 'tw'))
@@ -40,7 +41,7 @@ def main (argv):
     sources = glob.glob(opts.sources)
 
     if not sources:
-        print('twee2sam: no source files specified\n')
+        logging.error('twee2sam: no source files specified\n')
         sys.exit(2)
 
     for source in sources:
@@ -73,7 +74,7 @@ def main (argv):
 
     # 'Start' _must_ be the first script
     if not 'Start' in twp.passages:
-        print('twee2sam: "Start" passage not found.\n')
+        logging.error('twee2sam: "Start" passage not found.\n')
         sys.exit(2)
 
     process_passage_index(twp.passages['Start'])
@@ -125,7 +126,7 @@ def main (argv):
             check_print.in_buffer = 0
 
             def warning(msg):
-                print('Warning on {0}: {1}'.format(passage.title, msg))
+                logging.warning("Warning on \'{0}\': {1}".format(passage.title, msg))
 
             def out_string(msg):
                 MAX_LEN = 512
@@ -226,7 +227,7 @@ def main (argv):
                         try:
                             target = twp.passages[cmd.target]
                         except KeyError:
-                            print("Display macro target passage {0} not found!".format(cmd.target), file=sys.stderr)
+                            logging.error("Display macro target passage {0} not found!".format(cmd.target), file=sys.stderr)
                             return
                         process_command_list(target.commands)
 
@@ -364,4 +365,10 @@ class VariableFactory(object):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='twee2sam.log', level=logging.DEBUG)
+    console = logging.StreamHandler()
+    console.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(levelname)s: %(message)s')
+    console.setFormatter(formatter)
+    logging.getLogger('').addHandler(console)
     main(sys.argv)
