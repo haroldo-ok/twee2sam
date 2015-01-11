@@ -92,6 +92,8 @@ def main (argv):
     def script_name(s):
         return name_to_identifier(s) + '.twsam'
 
+    if not os.path.exists(opts.destination):
+        os.makedirs(opts.destination)
     with open(os.path.join(opts.destination, 'Script.list.txt'), 'w') as f_list:
         for passage_name in passage_order:
             passage = twp.passages[passage_name]
