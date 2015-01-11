@@ -177,8 +177,8 @@ def tokenize(program):
         source = program
     else:
         # Hack to make JS boolean operators work with the Python tokenizer
-        #TODO: replace like in twee2sam 
-        program = program.replace('&&', ' and ').replace('||', ' or ').replace('!', ' not ').replace('$', '').strip()
+        # go through the string and replace characters
+        program = ''.join(map(lambda x: {'&&': " and ", '||': ' or ', '!':' not ', '$':''}[x] if x in ('&&','||','!', '$') else x, program))
         source = tokenize_python(program)
     for id, value in source:
         if id == "(literal)":

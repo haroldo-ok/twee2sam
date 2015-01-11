@@ -277,14 +277,14 @@ def main (argv):
     # Function to copy the files on a list and generate a list file
     #
     def copy_and_build_list(list_file_name, file_list, item_extension, item_suffix = '', empty_item = 'blank'):
-        with open(os.path.join(opts.destination, list_file_name), 'w') as list_file:
+        with io.open(os.path.join(opts.destination, list_file_name), 'w', encoding="utf-8") as list_file:
             for file_path in file_list:
                 item_name = name_to_identifier(os.path.splitext(os.path.basename(file_path))[0])
                 list_file.write("%s%s\n" % (item_name, item_suffix))
                 shutil.copyfile(os.path.join(src_dir, file_path), os.path.join(opts.destination, '%s.%s' % (item_name, item_extension)))
 
             if not file_list:
-                list_file.write("%s%s\n" % (empty_item, item_suffix))
+                list_file.write(u"%s%s\n" % (empty_item, item_suffix))
 
 
 
