@@ -100,21 +100,36 @@ Plays music in *.epsgmod* format, as exported by [Mod2PSG2]
 Expressions
 -----------
 
-Currently, twee2sam has only limited expression support:
+Certain commands, like &lt;&lt;set&gt;gt;, &lt;&lt;print&gt;gt; and &lt;&lt;if&gt;gt; can take an expression as a parameter; the supported operators are:
 
-- **true** evaluates to true;
-- **false** evaluates to false;
-- ***variable name*** evaluates to the current value of the variable;
-- **not** ***variable_name*** or ***!variable_name*** evaluates to the logical negation of the current value of the variable; that is, if 'variable' is true, '!variable' is false, and vice versa.
-- **gt** evaluates to true if the left side (target) is greater than the right. Note: **not** is not supported with this operator.
-- **lt** evaluates to true if the left side (target) is less than the right. Note: **not** is not supported with this operator.
+### Boolean operators:
+- *expr1* **or** *expr2*: returns **true** if either of the expressions is true.
+- *expr2* **and** *expr2*: returns **true** only if both of the expressions are true.
+- **not** *expr*: turns **true** into **false** and vice versa.
+- constants: **true** and **false** are supported; also, any numeric value that equals zero is considered false, while any nonzero numeric values are considered true.
 
-So, essentially, the tool currently supports single boolean constants or single variables, with or without negation and less than (lt) or greater than (gt) and equivalence (=) comparisons. Future versions will support more complex expressions.
+### Comparison operators:
+- *expr1* **<** *expr2*: returns **true** if the value of the first expression is less than that of the second expression.
+- *expr1* **<=** *expr2*: returns **true** if the value of the first expression is less than or equal to that of the second expression.
+- *expr1* **>** *expr2*: returns **true** if the value of the first expression is more than that of the second expression.
+- *expr1* **>=** *expr2*: returns **true** if the value of the first expression is more than or equal to that of the second expression.
+- *expr1* **==** *expr2*: returns **true** if both expressions have the same value.
+- *expr1* **is** *expr2*: returns **true** if both expressions have the same value.
+- *expr1* **!=** *expr2*: returns **true** if the values of both expressions differ from each other.
+- *expr1* **<>** *expr2*: returns **true** if the values of both expressions differ from each other.
 
-Note that all variables are referenced with a leading $, as per normal Twine syntax.
+### Math operators:
+- *expr1* **+** *expr2*: Adds the values of both expressions.
+- *expr1* **-** *expr2*: Subtracts the value of the second expression from the first expression.
+- *expr1* * *expr2*: Multiplies the values of both expressions.
+- *expr1* **/** *expr2*: Divides the value of the first expression by the second expression.
+- *expr1* **%** *expr2*: Returns the remaider of the division of the value of the first expression by the second expression.
+
 
 History
 =======
+
+2015-01-08: Implemented actual expression support.
 
 2015-01-04: Added print, basic math functions and gt, and lt operators. Added external tiddlywiki source files.
 
