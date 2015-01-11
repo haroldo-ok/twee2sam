@@ -1,0 +1,42 @@
+﻿:: Start
+
+You're in a corridor branching in two directions
+<<pause>>
+* [[Go forward to the door|Door]]
+* [[Go to the lever|Lever]]
+
+
+:: StoryTitle
+Open the Door!
+
+
+:: Door
+<<if $pulled>>
+You're at the door.
+	<<pause>>	
+* [[Go through the door|win]]
+<<endif>>
+You're at the door, but it's bolted shut. Must be a lever round here somewhere!
+* [[Leave|Start]]
+
+
+:: Lever
+<<if not $pulled>>
+You're standing infront of a lever.
+Do you want to pull the lever?
+ <<pause>>
+* [[Yes|Lever]]
+<<set $pulled to true>>
+<<endif>>
+The lever is pulled.
+* [[Leave|Start]]
+
+
+:: StoryAuthor
+IMP
+
+
+:: win
+You have opened the door!
+
+

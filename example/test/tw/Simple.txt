@@ -1,0 +1,70 @@
+﻿:: First Option
+[img[Left.png]]
+So, you chose the first option.
+As you can see, links are automatically turned into menus.
+* [[Go to the end|The end]]
+
+
+:: Start
+This page is a test. 
+
+<<set $started = true>>
+<<pause>>
+
+<<music "system_of_a_master.epsgmod">>
+
+<<if $started>>
+	Okay, you started!
+
+	<<set $x = 99>>
+	Printing a number: <<print $x>>
+	Random numbers: <<print random(1, 6)>> <<print random(1, 6)>> <<print random(1, 6)>>
+	<<set $x = $x - 2>>
+	Decrementing a number: <<print $x>>
+	<<pause>>
+<<endif>>
+<<if !$nonExistant>>
+	Okay, no nonexistant variables here!
+<<endif>>
+
+<<display Included>>
+
+Let's display an image:
+
+[img[Hello.png]]
+Hello! This is a "quick-and-dirty" demo of twee2sam.
+<<if $nonExistant>>
+* [[I would like to end this|The end]]
+<<endif>>
+<<if $started>>
+* [[I would like to choose an option|First Option]]
+<<endif>>
+* [[I'd prefer to choose anoter option|Second option]]
+
+
+:: The end
+[img[Thanks.png]]
+
+This is a really long string to see how the 512 char limit is being handled by the engine. You see, on SAM, strings are kept on a character buffer on RAM, that are later sent to the screen; this char buffer has a 512 byte limit. Of course, if things come to that, you can always use the 'pause' macro to immediately display the current text to the screen. 
+For now, twee2sam will be simply cutting off the excess, in order to prevent the SAM interpreter from crashing. A more appropriate correction will hopefully be implemented later.
+
+<<pause>>
+Congratulations, this is the end.
+
+
+:: Second option
+[img[Right.png]]
+So, you prefer the second option?
+
+[img[Observation.png]]
+As you can see, the system supports images, though you'll have to properly convert them to the SMS pallete in order for them to work.
+
+* [[Go to the end.|The end]]
+* [[Back to the beginning.|Start]]
+
+
+
+:: Included
+This is some text for inclusion.
+
+

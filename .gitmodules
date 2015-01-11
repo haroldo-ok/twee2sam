@@ -1,0 +1,6 @@
+[submodule "sam"]
+	path = sam
+	url = https://github.com/haroldo-ok/sam
+[submodule "tw"]
+	path = tw
+	url = https://github.com/tweecode/twine

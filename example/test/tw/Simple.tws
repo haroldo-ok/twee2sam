@@ -1,0 +1,247 @@
+(dp0
+S'buildDestination'
+p1
+VC:\u005cUsers\u005cHaroldo\u005cProjetos\u005cpython\u005ctwee2sam\u005cexample\u005csimple\u005ctw\u005cSimple.html
+p2
+sS'saveDestination'
+p3
+S'C:\\Users\\Haroldo\\Projetos\\python\\twee2sam\\example\\test\\tw\\Simple.tws'
+p4
+sS'target'
+p5
+S'sugarcane'
+p6
+sS'storyPanel'
+p7
+(dp8
+S'widgets'
+p9
+(lp10
+(dp11
+S'selected'
+p12
+I01
+sS'pos'
+p13
+(lp14
+I40
+aI123
+asS'passage'
+p15
+(itiddlywiki
+Tiddler
+p16
+(dp18
+S'text'
+p19
+VThis page is a test. \u000a\u000a<<set $started = true>>\u000a<<pause>>\u000a\u000a<<music "system_of_a_master.epsgmod">>\u000a\u000a<<if $started>>\u000a	Okay, you started!\u000a\u000a	<<set $x = 99>>\u000a	Printing a number: <<print $x>>\u000a	Random numbers: <<print random(1, 6)>> <<print random(1, 6)>> <<print random(1, 6)>>\u000a	<<set $x = $x - 2>>\u000a	Decrementing a number: <<print $x>>\u000a	<<pause>>\u000a<<endif>>\u000a<<if !$nonExistant>>\u000a	Okay, no nonexistant variables here!\u000a<<endif>>\u000a\u000a<<display Included>>\u000a\u000aLet's display an image:\u000a\u000a[img[Hello.png]]\u000aHello! This is a "quick-and-dirty" demo of twee2sam.\u000a<<if $nonExistant>>\u000a* [[I would like to end this|The end]]\u000a<<endif>>\u000a<<if $started>>\u000a* [[I would like to choose an option|First Option]]\u000a<<endif>>\u000a* [[I'd prefer to choose anoter option|Second option]]
+p20
+sS'title'
+p21
+VStart
+p22
+sS'modified'
+p23
+ctime
+struct_time
+p24
+((I2015
+I1
+I8
+I23
+I2
+I46
+I3
+I8
+I1
+tp25
+(dp26
+tp27
+Rp28
+sS'tags'
+p29
+(lp30
+sS'created'
+p31
+g24
+((I2014
+I1
+I19
+I16
+I41
+I50
+I6
+I19
+I1
+tp32
+(dp33
+tp34
+Rp35
+sbsa(dp36
+g12
+I00
+sg13
+(lp37
+I322
+aI40
+asg15
+(itiddlywiki
+Tiddler
+p38
+(dp39
+g19
+V[img[Left.png]]\u000aSo, you chose the first option.\u000aAs you can see, links are automatically turned into menus.\u000a* [[Go to the end|The end]]
+p40
+sg21
+VFirst Option
+p41
+sg23
+g24
+((I2014
+I1
+I19
+I16
+I43
+I44
+I6
+I19
+I1
+tp42
+(dp43
+tp44
+Rp45
+sg29
+(lp46
+sg31
+g45
+sbsa(dp47
+g12
+I00
+sg13
+(lp48
+I282
+aI268
+asg15
+(itiddlywiki
+Tiddler
+p49
+(dp50
+g19
+V[img[Right.png]]\u000aSo, you prefer the second option?\u000a\u000a[img[Observation.png]]\u000aAs you can see, the system supports images, though you'll have to properly convert them to the SMS pallete in order for them to work.\u000a\u000a* [[Go to the end.|The end]]\u000a* [[Back to the beginning.|Start]]\u000a
+p51
+sg21
+VSecond option
+p52
+sg23
+g24
+((I2014
+I1
+I19
+I16
+I43
+I50
+I6
+I19
+I1
+tp53
+(dp54
+tp55
+Rp56
+sg29
+(lp57
+sg31
+g56
+sbsa(dp58
+g12
+I00
+sg13
+(lp59
+I602
+aI118
+asg15
+(itiddlywiki
+Tiddler
+p60
+(dp61
+g19
+V[img[Thanks.png]]\u000a\u000aThis is a really long string to see how the 512 char limit is being handled by the engine. You see, on SAM, strings are kept on a character buffer on RAM, that are later sent to the screen; this char buffer has a 512 byte limit. Of course, if things come to that, you can always use the 'pause' macro to immediately display the current text to the screen. \u000aFor now, twee2sam will be simply cutting off the excess, in order to prevent the SAM interpreter from crashing. A more appropriate correction will hopefully be implemented later.\u000a\u000a<<pause>>\u000aCongratulations, this is the end.
+p62
+sg21
+VThe end
+p63
+sg23
+g24
+((I2014
+I1
+I19
+I16
+I44
+I51
+I6
+I19
+I1
+tp64
+(dp65
+tp66
+Rp67
+sg29
+(lp68
+sg31
+g67
+sbsa(dp69
+g12
+I00
+sg13
+(lp70
+I51
+aI293
+asg15
+(itiddlywiki
+Tiddler
+p71
+(dp72
+g19
+VThis is some text for inclusion.
+p73
+sg21
+VIncluded
+p74
+sg23
+g24
+((I2015
+I1
+I5
+I20
+I50
+I56
+I0
+I5
+I1
+tp75
+(dp76
+tp77
+Rp78
+sg29
+(lp79
+sg31
+g24
+((I2015
+I1
+I5
+I20
+I49
+I51
+I0
+I5
+I1
+tp80
+(dp81
+tp82
+Rp83
+sbsasS'scale'
+p84
+I1
+sS'snapping'
+p85
+I00
+ss.

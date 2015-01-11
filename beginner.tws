@@ -1,0 +1,98 @@
+﻿:: Garten
+Der Gaertner taucht ploetzlich hinter einen Busch auf. Noch bevor du dein Mund geoeffnet hast, sticht er dir mit einer rostigen Gartenschere in die Brust. Du blutest ... keine Hilfe weit und breit ... du verblutest. ENDE.
+
+
+:: Start
+Du stehst vor dem weissen [[Haus im Wald|Eingangsbereich]] davor befindet sich ein schnuckliger kleiner [[Garten]]. Man erzaehlt sich das dieser Ort von einigen Dorfbewohnern auch "Haus der Qualen" genannt wird.
+<<set $schritte = 0>>
+
+
+:: Treppe
+<<if $ausgebrochen eq 1>>
+Ich hab dich gewarnt, nun hast du die Misere. Beim runtergehen  loest sich das Gelaender, du stuerzt und bricht dir das Genick. ENDE.
+<<else>>
+Alt und morsch ist die Treppe doch die Stufen fuehren stetig in die  [[2. Etage]]. Ein wenig robust ausschauendes Gelaender dient dir als Steighilfe. Zurueck zum [[Eingangsbereich]]?<<endif>>
+<<set $schritte = $schritte + 1>>
+
+
+:: 2. Etage
+
+<<if $aufgestiegen eq 5>><<set $ausgebrochen = 1>><<endif>>
+
+<<if $schliefer neq 1>> Vielen Dank, gleich ein Schliefer eingezogen, hat sich ja richtig gelohnt.
+Endlich oben angekommen, schreibst du eine Notiz an dich selbst. "Repariere das Gelaender" steht auf dem Papier. Adaequat gefaltet legst du diesen Hinweis gedanklich auf den Stapel zu erledigende Aufgaben fuer die Weihnachtsferien wohlwissend es eh nicht zu machen. <<endif>>Durch den Tuerschlitz im Kinderzimmer siehst die Licht. Geh schon [[hin|Spielzimmer]] oder doch [[zurueck zur Treppe|Treppe]].
+<<if $aufgestiegen neq 1 and $aufgestiegen neq 2 and $aufgestiegen neq 3  and $aufgestiegen neq 4>><<set $schliefer = 0>><<endif>>
+<<set $schliefer = 1>> 
+<<set $schritte = $schritte + 1>>
+<<set $aufgestiegen = $aufgestiegen + 1>>
+
+
+:: StoryTitle
+Der schlafende Neet. Version 0.0.0.1
+
+
+:: Eingangsbereich
+Im Erdgeschoss befindet sich neben der [[Treppe]], das [[Bad]].
+<<set $schritte = $schritte + 1>>
+<<if $getauscht eq 1 and $verbrannt eq 1>> Ein [[Lichttor]] im Garten wird sichtbar das danach schreit von dir erkundet zu werden.<<endif>>
+
+
+
+:: Spielzimmer
+<<if $besucht eq 4>> Deine Neffe ist genervt von deinen staendigen Besuchen. Er blockiert die Tuer und zueckt eine Voodoo-Puppe. Tja, das wars wohl.
+<<else>>
+Hier kauert dein verzogender Neffe auf den Boden und <<if $getauscht neq "1">> "verschoenert" mit einem Pfilzstift dein geliebtes SMS Modul "Master of Darkness". [[Tausch]] oder zurueck zur <<else>> kaut auf ein NES Modul, kein grosser Verlust, wie du meinst. Zurueck zur <<endif>> [[Treppe]]?
+<<endif>>
+<<if $besucht neq 1 and $besucht neq 2 and $besucht neq 3>><<set $besucht = 0>><<endif>>
+<<set $schritte = $schritte + 1>>
+<<set $besucht = $besucht + 1>>
+
+
+:: Tausch
+Du gibst den Rotzloeffel ein NES 3:1 Modul, was du zufaellig in den weitgeschnitteten Hosentasche sich befindet. Aber ohne Verpackung.<<set $getauscht = 1>> Zurueck zum [[Spielzimmer]].
+<<set $schritte = $schritte + 1>>
+
+
+:: Lichttor
+Ein langer Tunnel erwartet dich, wenig Licht und ploetzlich ein stechender Schmerz am Hinterkopf. Fortsetzung folgt...
+
+
+:: StoryAuthor
+Sakon
+
+
+:: Papieren
+Es handelt sich lediglich um N64-Packungen, kein Grund zur Aufregung. Geh zurueck ans [[Fenster]].<<set $schritte = $schritte + 1>>
+
+
+:: Bad
+<<if $schritte eq 20>>
+Du bekommst einen Wadenkrampf. In diesem Moment als du den Schrei ausstoesst, kommt der Gaertner herein mit der Heckenschere. Schnipp, schnapp die Hand ist ab. Du verblutest. Wenigstens laesst sich das Blut wieder gut von den Fliesen entfernen. ENDE.
+<<else>>
+Hier riechst, vielleicht sollte einmal das [[Fenster]] geoeffnet werden. Willst du den [[Medizinschrank]] oeffnen? Zurueck gehts zum [[Eingangsbereich]]? <<endif>>
+<<set $schritte = $schritte + 1>>
+
+
+:: Schoene neue Welt
+Benommen wachst du auf. Du warst einige Stunden oder gar Tage ohne Bewusstsein. Zurueck in den [[Garten|Lichttor]]
+
+
+:: Medizinschrank
+Ein Feder springt dir entgegen verfehlt dein Auge nur knapp. Leider kippt aber auch durch das ruckartige oeffnen die innen abgestellte Flasche Reiniger. Eine Brennen, die Fluessigkeit veraetzt deine Augen. Taumelnd und hilfloes erkennst du seine Situation. Du bist nun blind und wirst fuer ewig hier bleiben muessen. ENDE.
+
+
+:: Fenster
+Die Obdachlosen, die um eine brennde Tonne stehen, waermen ihren Haende ueber den Feuer. Bald wird ihnen der Brennstoff ausgehen. Du erblickst Stapel von [[Papieren]] neben der Tonne. Zurueck zum [[Bad]]. 
+<<if $verbrannt neq 1>>
+<<if $getauscht eq 1>> Nun, wo das Modul nicht mehr besitzt, brauchst du die Verpackung auch nicht. Gib ihnen [[diese|Pappe]] nun endlich.<<endif>>
+<<endif>>
+<<set $schritte = $schritte + 1>>
+
+
+:: Pappe
+Man bedankt sich herzlich bei dir und wuenscht dir noch eine gute Reise. Irritiert wendest du deinen Blick von ihnen ab.
+<<set $verbrannt = 1>> 
+Zurueck ans [[Fenster]].
+<<set $schritte = $schritte + 1>>
+
+
