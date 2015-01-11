@@ -1,4 +1,3 @@
-
-tw/lib/*.pyc
+*.pyc
 lib/*.pyc
 /bin/*
