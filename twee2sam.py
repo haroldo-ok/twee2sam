@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import argparse, sys, os, glob, re, shutil, os.path
+import argparse, sys, os, glob, re, shutil, io
+import logging
 from operator import itemgetter
 scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
 sys.path.append(os.path.join(scriptPath, 'tw'))
@@ -11,7 +12,7 @@ from tiddlywiki import TiddlyWiki
 from twparser import TwParser
 import twexpression
 
-__version__ = "0.7.1"
+__version__ = "0.8.0"
 
 def main (argv):
 
@@ -32,7 +33,7 @@ def main (argv):
     # read in a file to be merged
 
     if opts.merge:
-        with open(opts.merge) as f:
+        with io.open(opts.merge, encoding="utf-8-sig") as f:
             tw.addHtml(f.read())
 
     # read source files
@@ -40,12 +41,12 @@ def main (argv):
     sources = glob.glob(opts.sources)
 
     if not sources:
-        print('twee2sam: no source files specified\n')
+        logging.error('twee2sam: no source files specified\n')
         sys.exit(2)
 
     for source in sources:
-        with open(source) as f:
-            tw.addTwee(f.read().decode('utf-8-sig'))
+        with io.open(source, encoding="utf-8-sig") as f:
+            tw.addTwee(f.read())
 
     src_dir = os.path.dirname(sources[0])
 
@@ -73,7 +74,7 @@ def main (argv):
 
     # 'Start' _must_ be the first script
     if not 'Start' in twp.passages:
-        print('twee2sam: "Start" passage not found.\n')
+        logging.error('twee2sam: "Start" passage not found.\n')
         sys.exit(2)
 
     process_passage_index(twp.passages['Start'])
@@ -94,11 +95,11 @@ def main (argv):
 
     if not os.path.exists(opts.destination):
         os.makedirs(opts.destination)
-    with open(os.path.join(opts.destination, 'Script.list.txt'), 'w') as f_list:
+    with io.open(os.path.join(opts.destination, 'Script.list.txt'), 'w', encoding="utf-8") as f_list:
         for passage_name in passage_order:
             passage = twp.passages[passage_name]
-            f_list.write(script_name(passage.title))
-            f_list.write('\n')
+            f_list.write(u"%s" % script_name(passage.title))
+            f_list.write(u'\n')
 
 
     #
@@ -113,11 +114,11 @@ def main (argv):
     image_list = []
     music_list = []
     for passage in twp.passages.values():
-        with open(os.path.join(opts.destination, script_name(passage.title)), 'w') as script:
+        with io.open(os.path.join(opts.destination, script_name(passage.title)), 'w', encoding="utf-8") as script:
 
             def check_print():
                 if check_print.pending:
-                    script.write('!\n')
+                    script.write(u'!\n')
                     check_print.in_buffer = 0
                     check_print.pending = False
 
@@ -125,7 +126,7 @@ def main (argv):
             check_print.in_buffer = 0
 
             def warning(msg):
-                print('Warning on {0}: {1}'.format(passage.title, msg))
+                logging.warning("Warning on \'{0}\': {1}".format(passage.title, msg))
 
             def out_string(msg):
                 MAX_LEN = 512
@@ -139,33 +140,33 @@ def main (argv):
                     remaining = max(0, MAX_LEN - 1 -  check_print.in_buffer)
                     msg = msg[:remaining]
 
-                script.write('"{0}"'.format(msg))
-                script.write('\n')
+                script.write(u'"{0}"'.format(msg))
+                script.write(u'\n')
 
                 check_print.in_buffer += len(msg)
 
             def out_set(cmd):
                 out_expr(cmd.expr)
-                script.write(' ')
+                script.write(u' ')
                 target = variables.set_var(cmd.target)
-                script.write(target + '\n')
+                script.write(u"%s\n" % target)
 
             def out_if(cmd):
                 out_expr(cmd.expr)
-                script.write('[\n')
+                script.write(u'[\n')
                 process_command_list(cmd.children, True)
-                script.write(' 0]\n')
+                script.write(u' 0]\n')
 
             def out_print(cmd):
                 # print a numeric qvariable
                 out_expr(cmd.expr)
-                script.write('"\#"')
+                script.write(u'"\#"')
 
             def out_expr(expr):
                 def var_locator(name):
                     return variables.get_var(name).replace(':', '')
                 generated = twexpression.to_sam(expr, var_locator = var_locator)
-                script.write(generated)
+                script.write(u"%s" % generated)
 
             def out_call(cmd):
                 call_target = None
@@ -173,9 +174,8 @@ def main (argv):
                     if cmd.target == k:
                         call_target = passage_indexes[k]
                 if call_target:
-                    script.write(str(call_target))
-                    script.write('c')
-                    script.write('\n')
+                    script.write(u"%s" % call_target)
+                    script.write(u'c\n')
 
             # Outputs all the text
 
@@ -185,7 +185,7 @@ def main (argv):
                 temp_var = variables.new_temp_var() if is_conditional else None
                 links.append((cmd, temp_var))
                 if temp_var:
-                    script.write('1' + variables.set_var(temp_var))
+                    script.write(u'1%s' % variables.set_var(temp_var))
 
             def process_command_list(commands, is_conditional=False):
                 for cmd in commands:
@@ -200,7 +200,7 @@ def main (argv):
                         check_print()
                         if not cmd.path in image_list:
                             image_list.append(cmd.path)
-                        script.write('{0}i\n'.format(image_list.index(cmd.path)))
+                        script.write(u'{0}i\n'.format(image_list.index(cmd.path)))
                     elif cmd.kind == 'link':
                         register_link(cmd, is_conditional)
                         out_string(cmd.actual_label())
@@ -218,16 +218,16 @@ def main (argv):
                     elif cmd.kind == 'call':
                         out_call(cmd)
                     elif cmd.kind == 'return':
-                        script.write('$\n')
+                        script.write(u'$\n')
                     elif cmd.kind == 'music':
                         if not cmd.path in music_list:
                             music_list.append(cmd.path)
-                        script.write('{0}m\n'.format(music_list.index(cmd.path)))
+                        script.write(u'{0}m\n'.format(music_list.index(cmd.path)))
                     elif cmd.kind == 'display':
                         try:
                             target = twp.passages[cmd.target]
                         except KeyError:
-                            print("Display macro target passage {0} not found!".format(cmd.target), file=sys.stderr)
+                            logging.error("Display macro target passage {0} not found!".format(cmd.target), file=sys.stderr)
                             return
                         process_command_list(target.commands)
 
@@ -241,36 +241,36 @@ def main (argv):
                 # Outputs the options separated by line breaks, max 28 chars per line
                 for link, temp_var in links:
                     if temp_var:
-                        script.write('{0}['.format(variables.get_var(temp_var)))
+                        script.write(u'{0}['.format(variables.get_var(temp_var)))
 
                     out_string(link.actual_label()[:28] + '\n')
 
                     if temp_var:
-                        script.write('0]\n')
+                        script.write(u'0]\n')
 
-                script.write('?A.\n')
+                script.write(u'?A.\n')
                 check_print.in_buffer = 0
 
                 # Outputs the menu destinations
-                script.write('0B.\n');
+                script.write(u'0B.\n');
 
                 for link, temp_var in links:
                     if temp_var:
-                        script.write('{0}['.format(variables.get_var(temp_var)))
+                        script.write(u'{0}['.format(variables.get_var(temp_var)))
 
                     if not link.target in passage_indexes:
                         # TODO: Create a better exception
                         raise BaseException('Link points to a nonexisting passage: "{0}"'.format(link.target))
 
-                    script.write('A:B:=[{0}j]'.format(passage_indexes[link.target]))
-                    script.write('B:1+B.\n')
+                    script.write(u'A:B:=[{0}j]'.format(passage_indexes[link.target]))
+                    script.write(u'B:1+B.\n')
 
                     if temp_var:
-                        script.write('0]\n')
+                        script.write(u'0]\n')
 
             else:
                 # No links? Generates an infinite loop.
-                script.write('1[1]\n')
+                script.write(u'1[1]\n')
 
 
 
@@ -278,14 +278,14 @@ def main (argv):
     # Function to copy the files on a list and generate a list file
     #
     def copy_and_build_list(list_file_name, file_list, item_extension, item_suffix = '', empty_item = 'blank'):
-        with open(os.path.join(opts.destination, list_file_name), 'w') as list_file:
+        with io.open(os.path.join(opts.destination, list_file_name), 'w', encoding="utf-8") as list_file:
             for file_path in file_list:
                 item_name = name_to_identifier(os.path.splitext(os.path.basename(file_path))[0])
-                list_file.write(item_name + item_suffix + '\n')
+                list_file.write("%s%s\n" % (item_name, item_suffix))
                 shutil.copyfile(os.path.join(src_dir, file_path), os.path.join(opts.destination, '%s.%s' % (item_name, item_extension)))
 
             if not file_list:
-                list_file.write(empty_item + item_suffix + '\n')
+                list_file.write(u"%s%s\n" % (empty_item, item_suffix))
 
 
 
@@ -365,4 +365,10 @@ class VariableFactory(object):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='twee2sam.log', level=logging.DEBUG)
+    console = logging.StreamHandler()
+    console.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(levelname)s: %(message)s')
+    console.setFormatter(formatter)
+    logging.getLogger('').addHandler(console)
     main(sys.argv)

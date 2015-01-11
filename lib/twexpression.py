@@ -1,8 +1,17 @@
+# -*- coding: utf-8 -*-
+
 # Adapted from Fredrik Lundh's article "Simple Top-Down Parsing in Python"
 # see http://effbot.org/zone/simple-top-down-parsing.htm
 
 import sys
 import re
+
+import tokenize
+from io import StringIO
+
+#TODO: remove global usage
+token = None
+_next = None
 
 # symbol (token type) registry
 
@@ -21,11 +30,11 @@ class symbol_base(object):
         raise SyntaxError("Unknown operator (%r)." % self.id)
 
     def __repr__(self):
-        if self.id == "(name)" or self.id == "(literal)":
+        if self.id in ("(name)","(literal)"):
             return "(%s %s)" % (self.id[1:-1], self.value)
         out = [self.id, self.first, self.second, self.third]
         out = map(str, filter(None, out))
-        return "(" + " ".join(out) + ")"
+        return "(%s)" % " ".join(out)
 
 def symbol(id, bp=0):
     try:
@@ -68,7 +77,7 @@ def advance(id=None):
     global token
     if id and token.id != id:
         raise SyntaxError("Expected %r" % id)
-    token = next()
+    token = _next()
 
 def method(s):
     # decorator
@@ -90,7 +99,7 @@ infix("+", 110); infix("-", 110)
 
 infix("*", 120); infix("/", 120); infix("%", 120)
 
-prefix("-", 130); prefix("+", 130);
+prefix("-", 130); prefix("+", 130)
 
 symbol("(", 150)
 
@@ -142,15 +151,17 @@ constant("false")
 # python tokenizer
 
 def tokenize_python(program):
-    import tokenize
-    from cStringIO import StringIO
     type_map = {
         tokenize.NUMBER: "(literal)",
         tokenize.STRING: "(literal)",
         tokenize.OP: "(operator)",
-        tokenize.NAME: "(name)",
+        tokenize.NAME: "(name)"
         }
-    for t in tokenize.generate_tokens(StringIO(program).next):
+    try:
+        tok = tokenize.generate_tokens(StringIO(u"%s" % program).__next__)
+    except AttributeError:
+        tok = tokenize.generate_tokens(StringIO(u"%s" % program).next)
+    for t in tok:
         try:
             yield type_map[t[0]], t[1]
         except KeyError:
@@ -162,7 +173,7 @@ def tokenize_python(program):
                 raise SyntaxError("Syntax error")
     yield "(end)", "(end)"
 
-def tokenize(program):
+def tokenizing(program):
     if isinstance(program, list):
         source = program
     else:
@@ -192,23 +203,27 @@ def tokenize(program):
 def expression(rbp=0):
     global token
     t = token
-    token = next()
+    token = _next()
     left = t.nud()
     while rbp < token.lbp:
         t = token
-        token = next()
+        token = _next()
         left = t.led(left)
     return left
 
 def parse(program):
-    global token, next
-    next = tokenize(program).next
-    token = next()
+    global _next, token
+    #import pdb; pdb.set_trace()
+    try:
+        _next = tokenizing(program).__next__
+    except AttributeError:
+        _next = tokenizing(program).next
+    token = _next()
     return expression()
 
 def test(program):
-    print ">>>", program
-    print parse(program)
+    print(">>>", program)
+    print(parse(program))
 
 #
 # Code generation (maybe should be moved to another module)
@@ -234,46 +249,46 @@ OPERATOR_TABLE = {
 }
 
 def to_sam(program, var_locator = lambda s: s + '?'):
-    parsed = parse(program) if isinstance(program, basestring) else program
+    parsed = parse(program) if isinstance(program, str) else program
 
     def process_node(parsed):
         generated = []
         if parsed.id == '(literal)':
             # It's either a numeric literal or a constant
-            generated += [CONST_TABLE.get(parsed.value, parsed.value), ' ']
+            generated.extend([CONST_TABLE.get(parsed.value, parsed.value), ' '])
         elif parsed.id == '(name)':
             # It's reading a variable
             var_name = var_locator(parsed.value)
-            generated += [var_name, ' :' if var_name.isdigit() else ':']
+            generated.extend([var_name, ' :' if var_name.isdigit() else ':'])
         elif parsed.id in ('+', '-'):
             # + and - can be either unary or binary.
             if parsed.second:
                 # It's binary
-                generated += [process_node(parsed.first), process_node(parsed.second), parsed.id]
+                generated.extend([process_node(parsed.first), process_node(parsed.second), parsed.id])
             elif parsed.id == '-':
                 # It's a negation
-                generated += ['0 ', process_node(parsed.first), '-']
+                generated.extend(['0 ', process_node(parsed.first), '-'])
             else:
                 # It's a no-op
-                generated += [process_node(parsed.first)]
+                generated.extend([process_node(parsed.first)])
         elif parsed.id == '(':
             # It's a function call
             function_name = parsed.first.value
             if function_name == 'random':
                 params = parsed.second
-                generated += ['r']
+                generated.extend(['r'])
                 if len(params) == 1:
-                    generated += [process_node(params[0]), '\\']
+                    generated.extend([process_node(params[0]), '\\'])
                 elif len(params) == 2:
-                    generated += [process_node(params[1]), process_node(params[0]), '-1+\\', process_node(params[0]), '+']
+                    generated.extend([process_node(params[1]), process_node(params[0]), '-1+\\', process_node(params[0]), '+'])
             else:
                 raise SyntaxError("Unknown function (%r)" % function_name)
         elif parsed.second:
             # Assumes it's a binary operator
-            generated += [process_node(parsed.first), process_node(parsed.second), OPERATOR_TABLE.get(parsed.id, parsed.id)]
+            generated.extend([process_node(parsed.first), process_node(parsed.second), OPERATOR_TABLE.get(parsed.id, parsed.id)])
         else:
             # Assumes it's an unary operator
-            generated += [process_node(parsed.first), OPERATOR_TABLE.get(parsed.id, parsed.id)]
+            generated.extend([process_node(parsed.first), OPERATOR_TABLE.get(parsed.id, parsed.id)])
 
         return ''.join(generated)
 
