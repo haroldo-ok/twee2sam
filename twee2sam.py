@@ -356,7 +356,7 @@ class VariableFactory(object):
         self.next_available += 1
 
     def _num_to_ref(self, num):
-        return chr(ord('A') + num)
+        return chr(ord('A') + num) if num < 26 else str(num)
 
     def _normalize_name(self, name):
         return name.replace('$', '').strip()
