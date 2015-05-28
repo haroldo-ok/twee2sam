@@ -24,8 +24,8 @@ I01
 sS'pos'
 p13
 (lp14
-I40
-aI123
+I39
+aI122
 asS'passage'
 p15
 (itiddlywiki
@@ -34,7 +34,7 @@ p16
 (dp18
 S'text'
 p19
-VThis page is a test. \u000a\u000a<<set $started = true>>\u000a<<pause>>\u000a\u000a<<music "system_of_a_master.epsgmod">>\u000a\u000a<<if $started>>\u000a	Okay, you started!\u000a\u000a	<<set $x = 99>>\u000a	Printing a number: <<print $x>>\u000a	Random numbers: <<print random(1, 6)>> <<print random(1, 6)>> <<print random(1, 6)>>\u000a	<<set $x = $x - 2>>\u000a	Decrementing a number: <<print $x>>\u000a	<<pause>>\u000a<<endif>>\u000a<<if !$nonExistant>>\u000a	Okay, no nonexistant variables here!\u000a<<endif>>\u000a\u000a<<display Included>>\u000a\u000aLet's display an image:\u000a\u000a[img[Hello.png]]\u000aHello! This is a "quick-and-dirty" demo of twee2sam.\u000a<<if $nonExistant>>\u000a* [[I would like to end this|The end]]\u000a<<endif>>\u000a<<if $started>>\u000a* [[I would like to choose an option|First Option]]\u000a<<endif>>\u000a* [[I'd prefer to choose anoter option|Second option]]
+VThis page is a test. \u000a\u000a<<set $started = true>>\u000a<<pause>>\u000a\u000a<<music "system_of_a_master.epsgmod">>\u000a\u000a<<if $started>>\u000a	Okay, you started!\u000a\u000a	<<set $x = 99>>\u000a	Printing a number:&nbsp;<<print $x>>\u000a	Random numbers: <<print random(1, 6)>> <<print random(1, 6)>> <<print random(1, 6)>>\u000a	<<set $x = $x - 2>>\u000a	Decrementing a number: <<print $x>>\u000a	<<pause>>\u000a<<endif>>\u000a<<if !$nonExistant>>\u000a	Okay, no nonexistant variables here!\u000a<<endif>>\u000a\u000a<<display Included>>\u000a\u000aLet's display an image:\u000a\u000a[img[Hello.png]]\u000aHello! This is a "quick-and-dirty" demo of twee2sam.\u000aTesting&nbsp;non&nbsp;breaking&nbsp;spaaaaaaaaaaaace!!!!!&nbsp;blah&nbsp;blah\u000a<<if $nonExistant>>\u000a* [[I would like to end this|The end]]\u000a<<endif>>\u000a<<if $started>>\u000a* [[I would like to choose an option|First Option]]\u000a<<endif>>\u000a* [[I'd prefer to choose anoter option|Second option]]
 p20
 sS'title'
 p21
@@ -46,14 +46,14 @@ ctime
 struct_time
 p24
 ((I2015
-I1
-I8
-I23
+I5
+I27
+I20
+I33
+I31
 I2
-I46
-I3
-I8
-I1
+I147
+I0
 tp25
 (dp26
 tp27

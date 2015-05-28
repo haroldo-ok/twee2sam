@@ -202,7 +202,7 @@ class TextCmd(AbstractCmd):
         return '<cmd {0}{1}>'.format(self.kind, ident_list([self.text]))
 
     def _parse(self, token):
-        self.text = token[1]
+        self.text = token[1].replace('&nbsp;', '\x16')
 
 
 class ImageCmd(AbstractCmd):

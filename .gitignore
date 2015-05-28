@@ -2,3 +2,6 @@
 lib/*.pyc
 /bin/*
 /*.log
+/example/ccadv/*.log
+/example/imp-test/*.log
+/example/test/*.log
