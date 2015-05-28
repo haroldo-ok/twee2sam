@@ -97,6 +97,11 @@ The two above commands allow you to have 'subroutines' unconnected from your mai
 
 Plays music in *.epsgmod* format, as exported by [Mod2PSG2]
 
+&amp;nbsp;
+-----------
+
+Acts as a non-breaking space.
+
 Expressions
 -----------
 
