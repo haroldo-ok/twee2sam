@@ -153,8 +153,12 @@ class Passage(object):
             macro = CallMacro(token)
         elif kind == 'return':
             macro = ReturnMacro(token)
+        elif kind == 'else':
+            if not (self._block_stack and self._block_stack[-1].kind == 'if'):
+                self._warning('<<else>> without <<if>>')
+            macro = ElseMacro(token)
         elif kind == 'endif':
-            if self._block_stack and self._block_stack[-1].kind == 'if':
+            if self._block_stack and self._block_stack[-1].kind in ('if', 'else'):
                 self._block_stack.pop()
             else:
                 self._warning('<<endif>> without <<if>>')
@@ -202,7 +206,7 @@ class TextCmd(AbstractCmd):
         return '<cmd {0}{1}>'.format(self.kind, ident_list([self.text]))
 
     def _parse(self, token):
-        self.text = token[1]
+        self.text = token[1].replace('&nbsp;', '\x16')
 
 
 class ImageCmd(AbstractCmd):
@@ -340,6 +344,9 @@ class CallMacro(AbstractMacro):
             self.target = match.group(1)
             self.expr = self.target
             return
+
+class ElseMacro(AbstractMacro):
+    """Class for else branch of the current macro"""
 
 class ReturnMacro(AbstractMacro):
     """Class for a return-from-subroutine macro"""
