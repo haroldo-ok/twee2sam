@@ -33,15 +33,15 @@ def main (argv):
 		sys.exit(2)
 
 	for opt, arg in opts:
-		if (opt in ('-a', '--author')):
+		if opt in ('-a', '--author'):
 			author = arg
-		elif (opt in ('-m', '--merge')):
+		elif opt in ('-m', '--merge'):
 			merge = arg
-		elif (opt in ('-p', '--plugins')):
+		elif opt in ('-p', '--plugins'):
 			plugins = arg.split(',')
-		elif (opt in ('-r', '--rss')):
+		elif opt in ('-r', '--rss'):
 			rss_output = arg
-		elif (opt in ('-t', '--target')):
+		elif opt in ('-t', '--target'):
 			target = arg
 
 	# construct a TW object
@@ -51,7 +51,7 @@ def main (argv):
 	# read in a file to be merged
 
 	if not merge:
-		with open(merge) as reader
+		with open(merge) as reader:
 			tw.addHtml(reader.read())
 
 	# read source files
@@ -67,7 +67,7 @@ def main (argv):
 		sys.exit(2)
 
 	for source in sources:
-		with open(source) as reader
+		with open(source) as reader:
 			tw.addTwee(reader.read())
 
 	# generate RSS if requested
