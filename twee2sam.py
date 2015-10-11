@@ -157,6 +157,9 @@ def main (argv):
                 process_command_list(cmd.children, True)
                 script.write(u' 0]\n')
 
+            def out_else(cmd):
+                script.write(u'|')
+
             def out_print(cmd):
                 # print a numeric qvariable
                 out_expr(cmd.expr)
@@ -215,6 +218,8 @@ def main (argv):
                         out_set(cmd)
                     elif cmd.kind == 'if':
                         out_if(cmd)
+                    elif cmd.kind == 'else':
+                        out_else(cmd)
                     elif cmd.kind == 'call':
                         out_call(cmd)
                     elif cmd.kind == 'return':
@@ -336,7 +341,6 @@ class VariableFactory(object):
 
         if name in self.never_used:
             self.never_used.remove(name)
-
         return '{0}:'.format(self.vars[name])
 
     def new_temp_var(self):

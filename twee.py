@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import sys, os, getopt, glob
 scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
 sys.path.append(os.sep.join([scriptPath, 'tw', 'lib']))
@@ -9,7 +10,8 @@ from twparser import TwParser
 
 
 def usage():
-	print 'usage: twee [-a author] [-t target] [-m mergefile] [-r rss] source1 [source2..]'
+	print('usage: twee [-a author] [-t target] [-m mergefile]'+
+			' [-r rss] source1 [source2..]')
 
 
 def main (argv):
@@ -24,7 +26,8 @@ def main (argv):
 	# read command line switches
 
 	try:
-		opts, args = getopt.getopt(argv, 'a:m:p:r:t:', ['author=', 'merge=', 'plugins=', 'rss=', 'target='])
+		opts, args = getopt.getopt(argv, 'a:m:p:r:t:', 
+			['author=', 'merge=', 'plugins=', 'rss=', 'target='])
 	except getopt.GetoptError:
 		usage()
 		sys.exit(2)
@@ -47,10 +50,9 @@ def main (argv):
 
 	# read in a file to be merged
 
-	if merge != '':
-		file = open(merge)
-		tw.addHtml(file.read())
-		file.close()
+	if not merge:
+		with open(merge) as reader
+			tw.addHtml(reader.read())
 
 	# read source files
 
@@ -60,47 +62,44 @@ def main (argv):
 		for file in glob.glob(arg):
 			sources.append(file)
 
-	if len(sources) == 0:
-		print 'twee: no source files specified\n'
+	if not sources:
+		print('twee: no source files specified\n')
 		sys.exit(2)
 
 	for source in sources:
-		file = open(source)
-		tw.addTwee(file.read())
-		file.close()
+		with open(source) as reader
+			tw.addTwee(reader.read())
 
 	# generate RSS if requested
 
 	if rss_output != '':
-		rss_file = open(rss_output, 'w')
-		tw.toRss().write_xml(rss_file)
-		rss_file.close()
+		with open(rss_output, 'w') as rss_file:
+			tw.toRss().write_xml(rss_file)
 
 	# output the target header
 
 #	if (target != 'none') and (target != 'plugin'):
-#		file = open(scriptPath + os.sep + 'targets' + os.sep + target \
-#								+ os.sep + 'header.html')
+#		with open(scriptPath + os.sep + 'targets' + os.sep + target \
+#								+ os.sep + 'header.html') as reader:
 #		print(file.read())
-#		file.close()
 
 	# the tiddlers
 
-	print TwParser(tw)
+	print(TwParser(tw))
 
-#	print tw.toHtml()
+#	print(tw.toHtml())
 
 	# plugins
 
 #	for plugin in plugins:
-#		file = open(scriptPath + os.sep + 'targets' + os.sep + target \
-#								+ os.sep + 'plugins' + os.sep + plugin + os.sep + 'compiled.html')
-#		print(file.read())
-#		file.close()
+#		with open(scriptPath + os.sep + 'targets' + os.sep + target +
+#								os.sep + 'plugins' + os.sep + plugin +
+#								 os.sep + 'compiled.html') as reader:
+#		print(reader.read())
 
 	# and close it up
 
-#	print '</div></html>'
+#	print('</div></html>')
 
 
 if __name__ == '__main__':
