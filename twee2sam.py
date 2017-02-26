@@ -192,7 +192,7 @@ def main (argv):
                     if cmd.kind == 'text':
                         text = cmd.text.strip()
                         if text:
-                            out_string(text)
+                            out_string(cmd.text)
                             check_print.pending = True
                     elif cmd.kind == 'print':
                         out_print(cmd)
