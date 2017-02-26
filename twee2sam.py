@@ -193,9 +193,8 @@ def main (argv):
             def process_command_list(commands, is_conditional=False):
                 for cmd in commands:
                     if cmd.kind == 'text':
-                        text = cmd.text.strip()
-                        if text:
-                            out_string(text)
+                        if cmd.text.strip():
+                            out_string(cmd.text)
                             check_print.pending = True
                     elif cmd.kind == 'print':
                         out_print(cmd)
@@ -244,11 +243,12 @@ def main (argv):
 
             if links:
                 # Outputs the options separated by line breaks, max 28 chars per line
-                for link, temp_var in links:
+                for idx, (link, temp_var) in enumerate(links, 1):
                     if temp_var:
                         script.write(u'{0}['.format(variables.get_var(temp_var)))
 
-                    out_string(link.actual_label()[:28] + '\n')
+                    ending = "\n" if idx != len(links) else ""   
+                    out_string(link.actual_label()[:28] + ending)
 
                     if temp_var:
                         script.write(u'0]\n')
