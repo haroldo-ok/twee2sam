@@ -92,6 +92,12 @@ Example:
 
 The two above commands allow you to have 'subroutines' unconnected from your main Twine story which can be called from anywhere without using the traditional [[link]] syntax and then return back to the previous position - this would normally require the subroutine to know which passage to return back to, which does not work easily with subroutines that may be called from many different locations (high score screens, inventory/player status, a pause menu etc).
 
+&lt;&lt;jump *passage*&gt;&gt;
+---------
+
+Jumps to a passage, when you don't need a return to the original passage. The difference is on the command. This will generate a S.A.M "j" command, instead of a "c" command.
+
+
 &lt;&lt;music *"filename.epsgmod"*&gt;&gt;
 ---------
 
