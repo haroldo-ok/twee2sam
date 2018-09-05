@@ -151,6 +151,8 @@ class Passage(object):
             macro = self._parse_if(token, tokens)
         elif kind == 'call':
             macro = CallMacro(token)
+        elif kind == 'jump':
+            macro = CallMacro(token)
         elif kind == 'return':
             macro = ReturnMacro(token)
         elif kind == 'endif':
