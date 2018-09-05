@@ -168,7 +168,7 @@ def main (argv):
                 generated = twexpression.to_sam(expr, var_locator = var_locator)
                 script.write(u"%s" % generated)
 
-            def out_call(cmd):
+	    def out_call(cmd):
                 call_target = None
                 for k in passage_indexes.keys():
                     if cmd.target == k:
@@ -177,7 +177,17 @@ def main (argv):
                     script.write(u"%s" % call_target)
                     script.write(u'c\n')
 
-            # Outputs all the text
+            def out_jump(cmd):
+                call_target = None
+                for k in passage_indexes.keys():
+                    if cmd.target == k:
+                        call_target = passage_indexes[k]
+                if call_target:
+                    script.write(u"%s" % call_target)
+                    script.write(u'j\n')
+			
+			
+	    # Outputs all the text
 
             links = []
 
@@ -217,6 +227,8 @@ def main (argv):
                         out_if(cmd)
                     elif cmd.kind == 'call':
                         out_call(cmd)
+                    elif cmd.kind == 'jump':
+                        out_jump(cmd)
                     elif cmd.kind == 'return':
                         script.write(u'$\n')
                     elif cmd.kind == 'music':
